@@ -48,10 +48,14 @@ class MyLayerStack(Stack):
                         "zip -r layer.zip python && "
                         "mv layer.zip /asset-output/"
                     ],
+                    user="root", # When you use AWS CDK’s Docker bundling, you have add the user="root" parameter inside the BundlingOptions
+                    # By adding user="root", the container is executed as root, so the yum install commands have the necessary privileges to install Python 3 and pip
                 ),
             ),
             compatible_runtimes=[_lambda.Runtime.PYTHON_3_9],
             description="Layer with PyPDF2, Faker, boto3, numpy, pandas, scikit-learn."
+            
+            
         )
 
         # Output or store the ARN so other services/stacks can reference the layer
