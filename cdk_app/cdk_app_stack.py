@@ -20,7 +20,7 @@ class MyLayerStack(Stack):
             auto_delete_objects=True
         )
 
-        layer_code_path = "../layer_code/"  # An empty folder in your repo
+        layer_code_path = "layer_code"  # An empty folder in your repo
 
         # Create a Lambda Layer with specified dependencies
         my_layer = _lambda.LayerVersion(
@@ -37,6 +37,10 @@ class MyLayerStack(Stack):
                 #The Docker container is responsible for putting content at /asset-output. 
                 #The content at /asset-output will be zipped and used as the final asset
                     image=DockerImage.from_registry("amazonlinux:2"),
+                    
+                    user="root", # When you use AWS CDK’s Docker bundling, you have add the user="root" parameter inside the BundlingOptions
+                    # By adding user="root", the container is executed as root, so the yum install commands have the necessary privileges to install Python 3 and pip
+            
                     command=[
                         "bash", "-c",
                         # Install Python 3 + pip, then pip-install dependencies
@@ -52,10 +56,8 @@ class MyLayerStack(Stack):
                         "-t python/lib/python3.9/site-packages/ && "
                         "rm -rf python/lib/python3.9/site-packages/__pycache__ && "
                         "zip -r layer.zip python && "
-                        "mv layer.zip /asset-output"
+                        "mv layer.zip /asset-output/"
                     ],
-                    user="root", # When you use AWS CDK’s Docker bundling, you have add the user="root" parameter inside the BundlingOptions
-                    # By adding user="root", the container is executed as root, so the yum install commands have the necessary privileges to install Python 3 and pip
                 ),
             ),
             compatible_runtimes=[_lambda.Runtime.PYTHON_3_9],
