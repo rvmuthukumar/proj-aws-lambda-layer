@@ -35,7 +35,7 @@ class MyLayerStack(Stack):
                         "bash", "-c",
                         # Install Python 3 + pip, then pip-install dependencies
                         # and zip them up in a structure Lambda expects
-                        "yum install -y python3 pip && "
+                        "yum install -y python3 pip zip && "
                         "pip3 install "
                         "PyPDF2==3.0.1 "
                         "Faker==15.3.4 "
