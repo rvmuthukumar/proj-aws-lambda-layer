@@ -1,6 +1,7 @@
+from cdk_app.cdk_app_stack import MyLayerStack
 import unittest
 from aws_cdk import App
-from cdk_app_stack import MyLayerStack
+
 
 class TestMyLayerStack(unittest.TestCase):
 
