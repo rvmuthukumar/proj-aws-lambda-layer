@@ -30,14 +30,12 @@ class MyLayerStack(Stack):
             code=_lambda.Code.from_asset( # https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html
                 layer_code_path,
                 bundling=BundlingOptions( # https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3_assets.AssetOptions.html
-                ''''
-                Bundle the asset by executing a command in a Docker container or a custom bundling provider.
-
-                The asset path will be mounted at /asset-input. 
-                The Docker container is responsible for putting content at /asset-output. 
-                The content at /asset-output will be zipped and used as the final asset
                 
-                ''''
+                #Bundle the asset by executing a command in a Docker container or a custom bundling provider.
+
+                #The asset path will be mounted at /asset-input. 
+                #The Docker container is responsible for putting content at /asset-output. 
+                #The content at /asset-output will be zipped and used as the final asset
                     image=DockerImage.from_registry("amazonlinux:2"),
                     command=[
                         "bash", "-c",
