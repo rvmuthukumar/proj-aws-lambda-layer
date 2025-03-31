@@ -46,7 +46,7 @@ class MyLayerStack(Stack):
                         "-t python/lib/python3.9/site-packages/ && "
                         "rm -rf python/lib/python3.9/site-packages/__pycache__ && "
                         "zip -r layer.zip python && "
-                        "mv layer.zip /asset-output/"
+                        "mv layer.zip /layer_code/"
                     ],
                     user="root", # When you use AWS CDK’s Docker bundling, you have add the user="root" parameter inside the BundlingOptions
                     # By adding user="root", the container is executed as root, so the yum install commands have the necessary privileges to install Python 3 and pip
