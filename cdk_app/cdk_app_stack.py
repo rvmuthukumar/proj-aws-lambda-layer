@@ -39,7 +39,7 @@ class MyLayerStack(Stack):
                         "pip3 install "
                         "PyPDF2==3.0.1 "
                         "Faker==15.3.4 "
-                        "boto3==1.36.21 "
+                        #"boto3==1.36.21 "
                         "numpy==1.24.2 "
                         "pandas==1.5.3 "
                         "scikit-learn==1.2.2 "
