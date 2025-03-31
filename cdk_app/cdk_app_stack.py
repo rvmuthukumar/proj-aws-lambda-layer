@@ -20,16 +20,24 @@ class MyLayerStack(Stack):
             auto_delete_objects=True
         )
 
-        layer_code_path = "layer_code"  # An empty folder in your repo
+        layer_code_path = "../layer_code/"  # An empty folder in your repo
 
         # Create a Lambda Layer with specified dependencies
         my_layer = _lambda.LayerVersion(
             self,
             "MyPythonLayer",
             layer_version_name="mypythonlayer",
-            code=_lambda.Code.from_asset(
+            code=_lambda.Code.from_asset( # https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html
                 layer_code_path,
-                bundling=BundlingOptions(
+                bundling=BundlingOptions( # https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3_assets.AssetOptions.html
+                ''''
+                Bundle the asset by executing a command in a Docker container or a custom bundling provider.
+
+                The asset path will be mounted at /asset-input. 
+                The Docker container is responsible for putting content at /asset-output. 
+                The content at /asset-output will be zipped and used as the final asset
+                
+                ''''
                     image=DockerImage.from_registry("amazonlinux:2"),
                     command=[
                         "bash", "-c",
@@ -46,7 +54,7 @@ class MyLayerStack(Stack):
                         "-t python/lib/python3.9/site-packages/ && "
                         "rm -rf python/lib/python3.9/site-packages/__pycache__ && "
                         "zip -r layer.zip python && "
-                        "mv layer.zip ../layer_code/"
+                        "mv layer.zip /asset-output"
                     ],
                     user="root", # When you use AWS CDK’s Docker bundling, you have add the user="root" parameter inside the BundlingOptions
                     # By adding user="root", the container is executed as root, so the yum install commands have the necessary privileges to install Python 3 and pip
