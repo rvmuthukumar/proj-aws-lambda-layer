@@ -22,7 +22,7 @@ class MyLayerStack(Stack):
 
         # layer_code lives one level above cdk_app. Hence we need the ../ because when you cd into cdk_app and run cdk synth, 
           # it can properly find ../layer_code
-        layer_code_path = "../layer_code"  # An empty folder in your repo
+        layer_code_path = "layer_code"  # An empty folder in your repo
                                         
 
         # Create a Lambda Layer with specified dependencies
@@ -59,6 +59,7 @@ class MyLayerStack(Stack):
                         "-t python/lib/python3.9/site-packages/ && "
                         "rm -rf python/lib/python3.9/site-packages/__pycache__ && "
                         "zip -r layer.zip python && "
+                        "echo pwd &&"
                         "mv layer.zip /asset-output/"
                     ],
                 ),
