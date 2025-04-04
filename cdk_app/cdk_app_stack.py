@@ -20,7 +20,10 @@ class MyLayerStack(Stack):
             auto_delete_objects=True
         )
 
-        layer_code_path = "layer_code"  # An empty folder in your repo
+        # layer_code lives one level above cdk_app. Hence we need the ../ because when you cd into cdk_app and run cdk synth, 
+          # it can properly find ../layer_code
+        layer_code_path = "../layer_code"  # An empty folder in your repo
+                                        
 
         # Create a Lambda Layer with specified dependencies
         my_layer = _lambda.LayerVersion(

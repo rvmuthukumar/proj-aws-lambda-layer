@@ -3,7 +3,7 @@
 
 .venv/
 temp/
-
+layer_code/python/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
