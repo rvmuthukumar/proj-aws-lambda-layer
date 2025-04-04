@@ -40,8 +40,7 @@ jobs:
 
       - name: CDK Synth
         run: |
-          cd cdk_app
-          cdk synth
+          cdk synth -a "python cdk_app/app.py"
 
       - name: Deploy to AWS
         run: |
