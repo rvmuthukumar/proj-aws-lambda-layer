@@ -44,4 +44,7 @@ jobs:
 
       - name: Deploy to AWS
         run: |
-          cdk deploy --require-approval never
+          cdk deploy \
+          --app "python cdk_app/app.py" \
+          --require-approval never 
+          
